@@ -35,7 +35,10 @@ protected:
 	UPawnSensingComponent* PawnSensingComp;
 
 	UFUNCTION()
-		void OnPawnSeen(APawn* SeenPawn);
+	void OnPawnSeen(APawn* SeenPawn);
+
+	UFUNCTION()
+	void DealDamage();
 
 	UFUNCTION()
 	void ResetState();

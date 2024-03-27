@@ -3,6 +3,7 @@
 #include "AIModule/Classes/Blueprint/AIBlueprintHelperLibrary.h"
 #include "Perception/PawnSensingComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include <Components/CapsuleComponent.h>
 
 AEnemy::AEnemy() : Super()
 {
@@ -10,8 +11,15 @@ AEnemy::AEnemy() : Super()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
-
 	PawnSensingComp->OnSeePawn.AddDynamic(this, &AEnemy::OnPawnSeen);
+
+	//USphereComponent* EnemyCollision = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyCollision"));
+	//EnemyCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	
+	UCapsuleComponent* EnemyCollision = GetCapsuleComponent();
+	EnemyCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	//EnemyCollision->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::DealDamage);
+
 
 	GuardState = EAIState::Idle;
 }
@@ -42,6 +50,10 @@ void AEnemy::OnPawnSeen(APawn* SeenPawn)
 	
 	}
 
+}
+
+void AEnemy::DealDamage()
+{
 }
 
 
