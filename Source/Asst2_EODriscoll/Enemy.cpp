@@ -4,6 +4,7 @@
 #include "Perception/PawnSensingComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include <Components/CapsuleComponent.h>
+#include "Asst2_EODriscollProjectile.h"
 
 AEnemy::AEnemy() : Super()
 {
@@ -12,13 +13,11 @@ AEnemy::AEnemy() : Super()
 
 	PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
 	PawnSensingComp->OnSeePawn.AddDynamic(this, &AEnemy::OnPawnSeen);
-
-	//USphereComponent* EnemyCollision = CreateDefaultSubobject<USphereComponent>(TEXT("EnemyCollision"));
-	//EnemyCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	
 	UCapsuleComponent* EnemyCollision = GetCapsuleComponent();
 	EnemyCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	//EnemyCollision->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::DealDamage);
+	EnemyCollision->OnComponentHit.AddDynamic(this, &AEnemy::DealDamage);
+	
 
 
 	GuardState = EAIState::Idle;
@@ -27,6 +26,7 @@ AEnemy::AEnemy() : Super()
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	CurrentHealth = MaximumHealth;
 
 }
 
@@ -52,9 +52,37 @@ void AEnemy::OnPawnSeen(APawn* SeenPawn)
 
 }
 
-void AEnemy::DealDamage()
+void AEnemy::DealDamage(UPrimitiveComponent* HitComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComp,
+	FVector NormalImpulse,
+	const FHitResult& Hit)
 {
+	if (OtherActor)
+	{
+		if (AAsst2_EODriscollCharacter* Character = Cast<AAsst2_EODriscollCharacter>(OtherActor))
+		{
+			Character->CurrentHealth -= 10;
+		}
+		if (AAsst2_EODriscollProjectile* Projectile = Cast<AAsst2_EODriscollProjectile>(OtherActor))
+		{
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Cyan, "AMainPawn::OnHitActor");
+
+
+			}
+			CurrentHealth -= 1;
+
+			if (CurrentHealth == 0) {
+				Destroy();
+			}
+		}
+	}
+
 }
+
+
 
 
 void AEnemy::ResetState()

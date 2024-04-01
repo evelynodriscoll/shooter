@@ -35,6 +35,8 @@ AAsst2_EODriscollCharacter::AAsst2_EODriscollCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+	CurrentHealth = MaximumHealth;
+
 }
 
 void AAsst2_EODriscollCharacter::BeginPlay()

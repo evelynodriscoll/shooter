@@ -38,7 +38,7 @@ protected:
 	void OnPawnSeen(APawn* SeenPawn);
 
 	UFUNCTION()
-	void DealDamage();
+	void DealDamage(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	UFUNCTION()
 	void ResetState();
@@ -51,6 +51,12 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "AI")
 	void OnStateChanged(EAIState NewState);
+
+	UPROPERTY(EditDefaultsOnly)
+	float MaximumHealth;
+
+	UPROPERTY(BlueprintReadOnly)
+	float CurrentHealth;
 
 
 public:

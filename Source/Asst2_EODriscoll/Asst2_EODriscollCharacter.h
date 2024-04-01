@@ -64,6 +64,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	bool GetHasRifle();
 
+	UPROPERTY(EditDefaultsOnly)
+	float MaximumHealth;
+
+	UPROPERTY(BlueprintReadOnly)
+	float CurrentHealth;
+
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
