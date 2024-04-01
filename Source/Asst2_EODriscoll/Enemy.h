@@ -34,6 +34,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPawnSensingComponent* PawnSensingComp;
 
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UCapsuleComponent* EnemyCollision;
+
 	UFUNCTION()
 	void OnPawnSeen(APawn* SeenPawn);
 

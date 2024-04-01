@@ -18,6 +18,15 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category=Projectile)
 	TSubclassOf<class AAsst2_EODriscollProjectile> ProjectileClass;
 
+	UPROPERTY(EditAnywhere, Category = "Class to Spawn")
+	UClass* ProjectileBlueprintBlue;
+
+	UPROPERTY(EditAnywhere, Category = "Class to Spawn2")
+	UClass* ProjectileBlueprintRed;
+
+	//UPROPERTY(Transient)
+	//class AAsst2_EODriscollProjectile* Projectile;
+
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	USoundBase* FireSound;
@@ -38,6 +47,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* FireAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* FireRightAction;
+
 	/** Sets default values for this component's properties */
 	UTP_WeaponComponent();
 
@@ -48,6 +60,9 @@ public:
 	/** Make the weapon Fire a Projectile */
 	UFUNCTION(BlueprintCallable, Category="Weapon")
 	void Fire();
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void FireRight();
 
 protected:
 	/** Ends gameplay for this component. */

@@ -10,7 +10,7 @@ AAsst2_EODriscollProjectile::AAsst2_EODriscollProjectile()
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
 	CollisionComp->InitSphereRadius(5.0f);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
-	CollisionComp->OnComponentHit.AddDynamic(this, &AAsst2_EODriscollProjectile::OnHit);		// set up a notification for when this component hits something blocking
+	//CollisionComp->OnComponentHit.AddDynamic(this, &AAsst2_EODriscollProjectile::OnHit);		// set up a notification for when this component hits something blocking
 
 	// Players can't walk on it
 	CollisionComp->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
@@ -31,13 +31,3 @@ AAsst2_EODriscollProjectile::AAsst2_EODriscollProjectile()
 	InitialLifeSpan = 3.0f;
 }
 
-void AAsst2_EODriscollProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
-{
-	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
-	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
-		Destroy();
-	}
-}

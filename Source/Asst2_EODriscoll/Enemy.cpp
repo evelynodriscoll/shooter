@@ -13,12 +13,10 @@ AEnemy::AEnemy() : Super()
 
 	PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
 	PawnSensingComp->OnSeePawn.AddDynamic(this, &AEnemy::OnPawnSeen);
-	
-	UCapsuleComponent* EnemyCollision = GetCapsuleComponent();
+
+	EnemyCollision = GetCapsuleComponent();
 	EnemyCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	EnemyCollision->OnComponentHit.AddDynamic(this, &AEnemy::DealDamage);
-	
-
 
 	GuardState = EAIState::Idle;
 }
@@ -27,6 +25,7 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	CurrentHealth = MaximumHealth;
+	
 
 }
 
@@ -64,14 +63,8 @@ void AEnemy::DealDamage(UPrimitiveComponent* HitComponent,
 		{
 			Character->CurrentHealth -= 10;
 		}
-		if (AAsst2_EODriscollProjectile* Projectile = Cast<AAsst2_EODriscollProjectile>(OtherActor))
-		{
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Cyan, "AMainPawn::OnHitActor");
-
-
-			}
+		if (AAsst2_EODriscollProjectile* Projectile = Cast<AAsst2_EODriscollProjectile>(OtherActor)) {
+	
 			CurrentHealth -= 1;
 
 			if (CurrentHealth == 0) {
