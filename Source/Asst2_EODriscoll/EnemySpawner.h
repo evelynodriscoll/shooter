@@ -17,15 +17,24 @@ public:
 
 	
 	UPROPERTY(EditAnywhere, Category = "Class to Spawn")
-	UClass* EnemyBlueprint;
+	UClass* EnemyBlueprintBlue;
 
-	//UPROPERTY(EditAnywhere, Category = "Class to Spawn")
-	//TSubclassOf<class ARing> RingBlueprint;
+	UPROPERTY(EditAnywhere, Category = "Class to Spawn")
+	UClass* EnemyBlueprintRed;
 
 	void SpawnEnemy();
 
-	UPROPERTY(Transient)
-	class AEnemy* EnemyObject;
+	float SpawnDelayRangeLow;
+
+	float SpawnDelayRangeHigh;
+
+	float SpawnDelay;
+
+	float DifficultyScalar;
+
+	FTimerHandle SpawnTimerHandle;
+
+	int SpawnCount;
 
 protected:
 	// Called when the game starts or when spawned

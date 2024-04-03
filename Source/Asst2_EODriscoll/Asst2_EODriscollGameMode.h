@@ -11,8 +11,11 @@ class AAsst2_EODriscollGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+
+
 public:
 	AAsst2_EODriscollGameMode();
+
 };
 
 

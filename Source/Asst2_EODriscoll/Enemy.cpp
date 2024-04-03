@@ -25,7 +25,6 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	CurrentHealth = MaximumHealth;
-	
 
 }
 
@@ -64,11 +63,14 @@ void AEnemy::DealDamage(UPrimitiveComponent* HitComponent,
 			Character->CurrentHealth -= 10;
 		}
 		if (AAsst2_EODriscollProjectile* Projectile = Cast<AAsst2_EODriscollProjectile>(OtherActor)) {
-	
-			CurrentHealth -= 1;
 
-			if (CurrentHealth == 0) {
-				Destroy();
+			if ((this->ActorHasTag("Red") && OtherActor->ActorHasTag("Red")) || (this->ActorHasTag("Blue") && OtherActor->ActorHasTag("Blue"))) {
+
+				CurrentHealth -= 1;
+
+				if (CurrentHealth == 0) {
+					Destroy();
+				}
 			}
 		}
 	}

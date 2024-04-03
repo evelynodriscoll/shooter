@@ -4,6 +4,7 @@
 #include "Asst2_EODriscollCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
+
 AAsst2_EODriscollGameMode::AAsst2_EODriscollGameMode()
 	: Super()
 {
@@ -12,3 +13,4 @@ AAsst2_EODriscollGameMode::AAsst2_EODriscollGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 }
+

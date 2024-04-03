@@ -24,9 +24,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Class to Spawn2")
 	UClass* ProjectileBlueprintRed;
 
-	//UPROPERTY(Transient)
-	//class AAsst2_EODriscollProjectile* Projectile;
-
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	USoundBase* FireSound;
