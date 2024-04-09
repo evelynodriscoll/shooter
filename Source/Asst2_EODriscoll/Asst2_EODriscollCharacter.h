@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "TP_WeaponComponent.h"
 #include "Asst2_EODriscollCharacter.generated.h"
+
 
 class UInputComponent;
 class USkeletalMeshComponent;
@@ -69,6 +71,11 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	float CurrentHealth;
+
+	UTP_WeaponComponent* CurrentWeapon;
+
+	void DecreaseHealth();
+
 
 protected:
 	/** Called for movement input */

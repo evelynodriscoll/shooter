@@ -47,6 +47,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* FireRightAction;
 
+	UPROPERTY(EditDefaultsOnly)
+	float MaximumAmmo;
+
+	UPROPERTY(BlueprintReadOnly)
+	float CurrentAmmo;
+
 	/** Sets default values for this component's properties */
 	UTP_WeaponComponent();
 

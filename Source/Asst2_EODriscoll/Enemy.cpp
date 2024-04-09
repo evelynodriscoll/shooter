@@ -60,7 +60,8 @@ void AEnemy::DealDamage(UPrimitiveComponent* HitComponent,
 	{
 		if (AAsst2_EODriscollCharacter* Character = Cast<AAsst2_EODriscollCharacter>(OtherActor))
 		{
-			Character->CurrentHealth -= 10;
+			Character->DecreaseHealth();
+		
 		}
 		if (AAsst2_EODriscollProjectile* Projectile = Cast<AAsst2_EODriscollProjectile>(OtherActor)) {
 

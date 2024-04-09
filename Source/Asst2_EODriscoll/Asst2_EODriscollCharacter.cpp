@@ -75,6 +75,15 @@ void AAsst2_EODriscollCharacter::SetupPlayerInputComponent(class UInputComponent
 }
 
 
+void AAsst2_EODriscollCharacter::DecreaseHealth()
+{
+	if (CurrentHealth > 0) {
+		CurrentHealth -= 10;
+	}
+	
+}
+
+
 void AAsst2_EODriscollCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
