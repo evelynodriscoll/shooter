@@ -21,9 +21,6 @@ public:
 	class UTextBlock* WeaponAmmoCountText = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
-	class UButton* ClickMeButton = nullptr;
-
-	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	class UProgressBar* HealthBar = nullptr;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
@@ -35,14 +32,12 @@ public:
 	FText SetWeaponAmmoCount();
 
 	UFUNCTION()
+	FText SetGameOverText();
+
+	void RestartLevel();
+
+	UFUNCTION()
 	float SetHealthProgress();
-
-	UFUNCTION()
-	FText GameOver();
-
-private:
-	UFUNCTION()
-	void ButtonClicked();
 	
 };
 

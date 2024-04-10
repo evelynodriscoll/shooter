@@ -7,6 +7,8 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "PlayerHUD.h"
+#include <Kismet/GameplayStatics.h>
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -35,7 +37,8 @@ AAsst2_EODriscollCharacter::AAsst2_EODriscollCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
-	CurrentHealth = MaximumHealth;
+	//CurrentHealth = MaximumHealth;
+
 
 }
 
@@ -52,6 +55,8 @@ void AAsst2_EODriscollCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	CurrentHealth = MaximumHealth;
 
 }
 
@@ -70,16 +75,21 @@ void AAsst2_EODriscollCharacter::SetupPlayerInputComponent(class UInputComponent
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAsst2_EODriscollCharacter::Move);
 
 		//Looking
+
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AAsst2_EODriscollCharacter::Look);
+	
 	}
+
+
+
 }
 
 
 void AAsst2_EODriscollCharacter::DecreaseHealth()
 {
-	if (CurrentHealth > 0) {
-		CurrentHealth -= 10;
-	}
+	if (this->CurrentHealth > 0) {
+		this->CurrentHealth -= 1;
+	}	
 	
 }
 

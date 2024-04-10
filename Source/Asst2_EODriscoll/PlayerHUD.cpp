@@ -11,11 +11,6 @@
 //UI HUD
 void UPlayerHUD::NativeConstruct()
 {
-	if (ClickMeButton)
-	{
-		//ClickMeButton->OnClicked.AddDynamic(this, &UPlayerHud::ButtonClicked);
-	}
-
 
 }
 
@@ -33,10 +28,10 @@ bool UPlayerHUD::Initialize()
 		HealthBar->PercentDelegate.BindUFunction(this, "SetHealthProgress");
 	}
 
-	//if (GameOverText)
-	//{
-		//GameOverText->TextDelegate.BindUFunction(this, "GameOver");
-	//}
+	if (GameOverText)
+	{
+		GameOverText->TextDelegate.BindUFunction(this, "SetGameOverText");
+	}
 
 
 	return true;
@@ -62,7 +57,7 @@ FText UPlayerHUD::SetWeaponAmmoCount()
 				AmmoCount = Weapon->CurrentAmmo;
 				MaxAmmo = Weapon->MaximumAmmo;
 			}
-			return FText::FromString(FString::FromInt(AmmoCount) + "/" + FString::FromInt(MaxAmmo));
+			return FText::FromString("Ammo: " + FString::FromInt(AmmoCount) + "/" + FString::FromInt(MaxAmmo));
 			//return FText::AsNumber(AmmoCount);
 		}
 	}
@@ -87,33 +82,40 @@ float UPlayerHUD::SetHealthProgress()
 	return 1;
 }
 
-FText UPlayerHUD::GameOver()
-{
-	FText returnString = FText::FromString("");
+FText UPlayerHUD::SetGameOverText() {
+
+	FText ReturnString;
 
 	APlayerController* PC = GetOwningPlayer();
 	if (PC)
 	{
 		AAsst2_EODriscollCharacter* Player = Cast<AAsst2_EODriscollCharacter>(PC->GetCharacter());
-		if (Player->CurrentHealth == 0) {
-			returnString = FText::FromString("GAME OVER");
+		if (Player)
+		{
+			if (Player->CurrentHealth == 0) {
+				ReturnString = FText::FromString("GAME OVER");
+				FTimerHandle TimerHandle;
+				GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &UPlayerHUD::RestartLevel, 3, false);
+
+			}
+			else {
+				ReturnString = FText::FromString("");
+			}
 		}
 	}
+	return ReturnString;
 
-	return returnString;
 }
 
-
-//UI HUD
-void UPlayerHUD::ButtonClicked()
-{
-	//WeaponAmmoCountText->SetColorAndOpacity(FSlateColor(FLinearColor::Blue));
-
+void UPlayerHUD::RestartLevel() {
 	APlayerController* PC = GetOwningPlayer();
-	if (PC)
-	{
-		PC->ConsoleCommand("RestartLevel");
-	}
-
+	PC->ConsoleCommand("RestartLevel");
 }
+
+
+
+
+
+
+
 

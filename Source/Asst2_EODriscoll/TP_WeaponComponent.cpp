@@ -15,7 +15,7 @@ UTP_WeaponComponent::UTP_WeaponComponent()
 {
 	// Default offset from the character location for projectiles to spawn
 	MuzzleOffset = FVector(100.0f, 0.0f, 10.0f);
-	MaximumAmmo = 10;
+	MaximumAmmo = 100;
 	CurrentAmmo = MaximumAmmo;
 }
 
@@ -157,6 +157,9 @@ void UTP_WeaponComponent::AttachWeapon(AAsst2_EODriscollCharacter* TargetCharact
 
 			
 		}
+	}
+	else {
+
 	}
 }
 
